@@ -1,5 +1,7 @@
 <template>
-    <button :class="buttonClass" type="button"><slot/></button>
+  <button class="button" :class="buttonClass" type="button">
+    <slot />
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -11,7 +13,7 @@ type ButtonVariant =
   | 'text'
   | 'unstyled';
 
-const props = defineProps<{variant?: ButtonVariant}>();
+const props = defineProps<{ variant?: ButtonVariant }>();
 
 const buttonClass = computed(() => {
   const variant = props.variant ?? "filled-red";
@@ -35,7 +37,7 @@ const buttonClass = computed(() => {
   text-decoration: none;
   display: inline-block;
   padding: 18px 24px;
-  transition: opacity 0.25s, scale cubic-bezier(.3,0,0,1) 60ms;
+  transition: opacity 0.25s, scale cubic-bezier(.3, 0, 0, 1) 60ms;
   border-radius: var(--border-radius-md);
 
   &:hover {
@@ -47,40 +49,44 @@ const buttonClass = computed(() => {
     opacity: 0.8;
   }
 
-  .disabled, &:disabled {
+  .disabled,
+  &:disabled {
     pointer-events: none;
     opacity: 0.6;
   }
-}
 
-.filled-red {
-  color: var(--color-white);
-  background-color: var(--color-red);
-}
+  &--filled-red {
+    color: var(--color-white);
+    background-color: var(--color-red);
+  }
 
-.outline-white, .outline-white-icon {
-  color: var(--color-white);
-  border: 1px solid var(--color-white);
-}
+  &--outline-white,
+  &--outline-white-icon {
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+  }
 
-.outline-white-icon {
-  line-height: 0;
-}
+  &--outline-white-icon {
+    line-height: 0;
+  }
 
-.text, .unstyled {
-  all: unset;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-.text {
-  line-height: 1;
-  display: inline;
-  font-weight: 600;
-  font-size: var(--fs-text_M);
-  color: var(--color-white);
-}
+  &--text,
+  &--unstyled {
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
 
-.unstyled {
-  display: inline-block;
+  &--text {
+    line-height: 1;
+    display: inline;
+    font-weight: 600;
+    font-size: var(--fs-text_M);
+    color: var(--color-white);
+  }
+
+  &--unstyled {
+    display: inline-block;
+  }
 }
 </style>
