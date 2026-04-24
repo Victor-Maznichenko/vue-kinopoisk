@@ -1,6 +1,7 @@
 <template>
   <button class="button" :class="buttonClass" type="button">
-    <slot />
+    <span v-if="isLoading">Загрузка</span>
+    <slot v-else />
   </button>
 </template>
 
@@ -13,13 +14,14 @@ type ButtonVariant =
   | 'text'
   | 'unstyled';
 
-const props = defineProps<{ variant?: ButtonVariant }>();
+interface ButtonProps {
+  variant?: ButtonVariant, 
+  isLoading: boolean
+}
 
-const buttonClass = computed(() => {
-  const variant = props.variant ?? "filled-red";
+const { variant, isLoading } = defineProps<ButtonProps>();
 
-  return `button--${variant}`;
-});
+const buttonClass = computed(() => `button--${variant ?? "filled-red"}`);
 </script>
 
 <style lang="scss" scoped>
