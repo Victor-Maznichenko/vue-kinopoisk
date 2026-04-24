@@ -76,5 +76,4 @@ const styles = computed(() => [{'--avatar-size': `${props.size}px`}]);
 .avatar--square {
     border-radius: calc(var(--avatar-size) / 5.4);
 }
-
 </style>

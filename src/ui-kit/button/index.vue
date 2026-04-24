@@ -1,12 +1,13 @@
 <template>
-  <button class="button" :class="buttonClass" type="button">
+  <button :class="buttonClass" type="button">
     <span v-if="isLoading">Загрузка</span>
     <slot v-else />
   </button>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, useCssModule } from "vue";
+
 type ButtonVariant =
   | 'filled-red'
   | 'outline-white-icon'
@@ -16,20 +17,25 @@ type ButtonVariant =
 
 interface ButtonProps {
   variant?: ButtonVariant, 
-  isLoading: boolean
+  isLoading?: boolean
 }
 
-const { variant, isLoading } = defineProps<ButtonProps>();
+const style = useCssModule()
+const { variant = 'filled-red', isLoading = false } = defineProps<ButtonProps>();
 
-const buttonClass = computed(() => `button--${variant ?? "filled-red"}`);
+const buttonClass = computed(() => [
+  style.button,
+  style[`button--${variant}`],
+  isLoading && style['button--loading'],
+]);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 @use "sass:map";
 
 .button {
   font-weight: 600;
-  font-size: var(--fs-text_M);
+  font-size: var(--fs-text-m);
   line-height: 1;
   cursor: pointer;
   overflow: hidden;
@@ -83,7 +89,7 @@ const buttonClass = computed(() => `button--${variant ?? "filled-red"}`);
     line-height: 1;
     display: inline;
     font-weight: 600;
-    font-size: var(--fs-text_M);
+    font-size: var(--fs-text-m);
     color: var(--color-white);
   }
 

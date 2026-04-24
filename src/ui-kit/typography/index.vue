@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useCssModule } from 'vue';
 
 type TypographyStyle =
   | 'heading-1'
@@ -23,19 +23,21 @@ interface TypographyProps {
   as?: keyof HTMLElementTagNameMap;
 }
 
+const style = useCssModule();
+
 const props = withDefaults(defineProps<TypographyProps>(), {
   as: 'p',
   variant: 'text-m',
 });
 
 const classes = computed(() => [
-  'typography',
-  `typography--${props.variant}`,
-  props.accentColor && 'typography--primary-color',
+  style.typography,
+  style[`typography--${props.variant}`],
+  props.accentColor && style['typography--primary-color']
 ]);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .typography--heading-1,
 .typography--heading-2,
 .typography--heading-3,
