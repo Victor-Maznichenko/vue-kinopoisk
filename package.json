@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "axios": "^1.15.2",
-    "vue": "^3.5.32"
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.6"
   },
   "devDependencies": {
     "@storybook/vue3-vite": "^10.3.5",
