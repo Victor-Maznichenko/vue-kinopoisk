@@ -8,8 +8,9 @@
 </template>
 
 <script setup lang="ts">
-    import Button from '../button/index.vue'; 
     import { computed, ref } from 'vue';
+    import Button from '../button/index.vue'; 
+    import Typography from '@/ui-kit/typography/index.vue';
 
     interface TextExpandProps {
         text: string,

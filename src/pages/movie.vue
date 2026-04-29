@@ -14,7 +14,7 @@
         <section :class="$style.info">
           <div :class="$style.details">
             <div :class="$style.about">
-              <Typography :class="$style.title" variant='heading_2' as='h2'>{{MOVIE_CONTENT.aboutTitle}}</Typography>
+              <Typography :class="$style.title" variant='heading-2' as='h2'>{{MOVIE_CONTENT.aboutTitle}}</Typography>
               <!-- <Typography>{{movie?.overview}}</Typography> -->
             </div>
 
@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import Typography from '@/ui-kit/typography/index.vue';
 //   const id = useParams()?.id ?? '-1';
 //   const { movie, getMovie, reset } = useMoviesStore();
 

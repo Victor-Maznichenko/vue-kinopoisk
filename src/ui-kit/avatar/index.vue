@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="styles">
-    <img v-if="props?.src" class="img" :src="props.src" alt="" />
+    <img v-if="props?.src" :class="$style.img" :src="props.src" alt="" />
     <span v-else-if="props.text">{{ getInitials(props.text) }}</span>
     <IconUser v-else />
   </div>
@@ -34,7 +34,7 @@ const classes = computed(() => [
 const styles = computed(() => [{'--avatar-size': `${props.size}px`}]);
 </script>
 
-<style module>
+<style lang="scss" module>
 .avatar {
     --avatar-size: 32px;
     display: inline-block;
