@@ -1,1 +1,0 @@
-export * as SliderDefault from './slider';

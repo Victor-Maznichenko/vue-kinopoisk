@@ -1,1 +1,0 @@
-export * as SliderCoverflow from './slider';

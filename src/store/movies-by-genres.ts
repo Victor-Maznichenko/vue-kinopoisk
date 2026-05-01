@@ -45,30 +45,30 @@ export const useMoviesByGenres = defineStore("moviesByGenres", () => {
       }
    };
 
-   const getPreparedList = computed(() => {
-      const genresStore = useGenres();
-      const preparedData = list.value.map((moviesByGenre, i) => {
-         const { name, id } = genresStore.list[i];
+const preparedList = computed(() => {
+  const genresStore = useGenres();
+  // если жанры не загружены или результаты фильмов пусты — вернуть []
+  if (!genresStore.list.length || !list.value.length) return [];
 
-         if (!name || !id || !moviesByGenre) {
-            throw new Error("Неверный ответ от сервера");
-         }
-
-         moviesByGenre = moviesByGenre.map(({ genre_ids = [], ...movie }) => ({
-            ...movie,
-            genre_ids,
-            genres_names: genre_ids.map((id) => findGenreById(genresStore.list, id)?.name ?? ""),
-         }));
-
-         return { id, name, list: moviesByGenre } as MoviesByGenre;
-      });
-
-      return preparedData;
-   });
+  return list.value.map((moviesByGenre, i) => {
+    const genre = genresStore.list[i];
+    if (!genre?.name || !genre?.id || !moviesByGenre) {
+      // вместо throw возвращаем заглушку или логируем ошибку
+      console.warn('Invalid data for genre', genre, moviesByGenre);
+      return null;
+    }
+    const enrichedMovies = moviesByGenre.map(({ genre_ids = [], ...movie }) => ({
+      ...movie,
+      genre_ids,
+      genres_names: genre_ids.map(id => genresStore.list.find(g => g.id === id)?.name ?? ''),
+    }));
+    return { id: genre.id, name: genre.name, list: enrichedMovies };
+  }).filter(Boolean); // убрать null-элементы
+});
 
    return {
       isLoading,
       getList,
-      getPreparedList,
+      preparedList,
    };
 });
