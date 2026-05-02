@@ -1,6 +1,6 @@
 import { ROUTES } from '@/common/lib'
 import Home from '@/pages/home/index.vue'
-import Movie from '@/pages/movie.vue'
+import Movie from '@/pages/movie/index.vue'
 import NotFound from '@/pages/not-found.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 

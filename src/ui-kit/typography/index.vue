@@ -81,7 +81,7 @@ const classes = computed(() => [
   line-height: 1;
 }
 
-.typography--primaryColor {
+.typography--primary-color {
   color: var(--color-red);
 }
 </style>

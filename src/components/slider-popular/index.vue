@@ -10,7 +10,7 @@
       :class="$style.sliderPopular"
    >
       <SwiperSlide v-for="movie in items" :class="$style.slide" :key="movie.id">
-         <RouterLink :class="$style.movie" :to="'/123'">
+         <RouterLink :class="$style.movie" :to="{ path: ROUTES.MOVIE.replace(':id', String(movie.id)) }">
             <img :class="$style.movie__img" :src="buildStaticURL(movie.poster_path)" />
             <Typography as="h6">{{ movie.title }}</Typography>
          </RouterLink>
@@ -80,5 +80,4 @@ const modules = [EffectCreative, Autoplay];
 .slide:global(.swiper-slide-visible) {
    opacity: 1 !important;
 }
-
 </style>

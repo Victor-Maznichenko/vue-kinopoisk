@@ -1,10 +1,10 @@
 
 <template>
     <p v-if="isExpanded">
-      <Typography as='span'>{{isOpen ? text : shortestText}} </Typography>
+      <Typography as='span' v-html="displayText" />
       <Button @click="handleClick" variant='text'>{{ isOpen ? 'Скрыть' : 'Показать' }}</Button>
     </p>
-    <p v-else><Typography as='span'>{{text}} </Typography></p>
+    <p v-else><Typography as='div' v-html="text" /></p>
 </template>
 
 <script setup lang="ts">
@@ -27,5 +27,7 @@
     const handleClick = () => isOpen.value = !isOpen.value;
 
     const isExpanded = computed(() => props.text.length > props.maxLength);
+
     const shortestText = computed(() => `${props.text.slice(0, props.maxLength)}...`);
+    const displayText = computed(() => isOpen.value ? props.text : shortestText.value)
 </script>

@@ -65,6 +65,7 @@ const NAVIGATION_LINKS = [
 
 .header {
     position: absolute;
+    z-index: 10;
     width: 100%;
     display: flex;
     align-items: center;

@@ -1,13 +1,15 @@
 <template>
-   <Swiper
-      :slidesPerView="3"
-      :spaceBetween="30"
-      :modules="modules"
-      :class="$style.sliderMovies"
-   >
+   <Swiper :slidesPerView="3" :spaceBetween="30" :modules="modules" :class="$style.sliderMovies">
       <SwiperSlide :class="$style.movie" v-for="movie in items">
-         <img :class="$style.movieImg" :src="buildStaticURL(movie.poster_path)" loading="lazy" :alt="movie.title" />
-         <Typography variant="heading-5" as="h5">{{movie.title}}</Typography>
+         <RouterLink :to="{ path: ROUTES.MOVIE.replace(':id', String(movie.id)) }">
+            <img
+               :class="$style.movieImg"
+               :src="buildStaticURL(movie.poster_path)"
+               loading="lazy"
+               :alt="movie.title"
+            />
+            <Typography variant="heading-5" as="h5">{{ movie.title }}</Typography>
+         </RouterLink>
       </SwiperSlide>
    </Swiper>
 </template>
@@ -16,7 +18,7 @@
 import type { DiscoverMovie200ResultsItem } from "@/common/api";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper/modules";
-import { buildStaticURL } from "@/common/lib";
+import { buildStaticURL, ROUTES } from "@/common/lib";
 import "swiper/css";
 
 interface SliderProps {
@@ -30,14 +32,14 @@ const modules = [Navigation];
 
 <style module lang="scss">
 .sliderMovies {
-  width: 100%;
+   width: 100%;
 }
 
 .movieImg {
-  display: block;
-  width: 100%;
-  height: 225px;
-  object-fit: cover;
-  border-radius: 10px;
+   display: block;
+   width: 100%;
+   height: 225px;
+   object-fit: cover;
+   border-radius: 10px;
 }
 </style>

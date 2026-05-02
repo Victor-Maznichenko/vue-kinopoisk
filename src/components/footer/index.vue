@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import {ROUTES} from '@/common/lib';
+import { ROUTES } from '@/common/lib';
 import { CONTACTS, NAVIGATION_DATA, SOCIALS } from './lib';
 import IconLogo from '@/common/assets/icons/logo.svg';
 import Typography from '@/ui-kit/typography/index.vue';
@@ -96,7 +96,7 @@ import Typography from '@/ui-kit/typography/index.vue';
 const currentYear = new Date().getFullYear()
 </script>
 
-<style lang="scss" module>
+<style module lang="scss">
 .footer {
     border-top: 1px solid var(--color-white-15);
     padding: 50px 0 30px;

@@ -2,9 +2,9 @@
    <section :class="$style.main">
       <div :class="$style.info">
          <Typography variant="heading-2">{{ PAGE_CONTENT.main.title }}</Typography>
-         <Typography :class="$style.description" variant="text-m"
-            >| {{ PAGE_CONTENT.main.description }}</Typography
-         >
+         <Typography :class="$style.description" variant="text-m">
+            {{ PAGE_CONTENT.main.description }}
+         </Typography>
          <Button :class="$style.button">{{ PAGE_CONTENT.main.buttonText }}</Button>
       </div>
 

@@ -13,12 +13,10 @@ interface MoviesByGenre {
    id: number;
 }
 
-const offset = 0;
-const limit = 10;
-const findGenreById = (genres: GenreMovieList200GenresItem[], id: number) =>
-   genres.find((g) => g.id === id);
+const LIMIT = 10;
 
 export const useMoviesByGenres = defineStore("moviesByGenres", () => {
+   const offset = ref(0);
    const list = ref<DiscoverMovie200ResultsItem[][]>([]);
    const isLoading = ref(false);
 
@@ -30,14 +28,13 @@ export const useMoviesByGenres = defineStore("moviesByGenres", () => {
          const genresStore = useGenres();
          if (!genresStore.list.length) await genresStore.getList();
 
-         const promises = genresStore.list.slice(offset, offset + limit).map(({ id }) =>
-            requests.discoverMovie({
-               with_genres: String(id ?? -1),
-            }),
+         const promises = genresStore.list.slice(LIMIT, offset.value + LIMIT).map(({ id }) =>
+            requests.discoverMovie({ with_genres: String(id ?? -1) }),
          );
 
          const responses = await Promise.all(promises);
          list.value = responses.map((response) => response.data.results ?? []);
+         offset.value += LIMIT;
       } catch (error) {
          // TOAST
       } finally {
@@ -45,26 +42,27 @@ export const useMoviesByGenres = defineStore("moviesByGenres", () => {
       }
    };
 
-const preparedList = computed(() => {
-  const genresStore = useGenres();
-  // если жанры не загружены или результаты фильмов пусты — вернуть []
-  if (!genresStore.list.length || !list.value.length) return [];
+   const preparedList = computed(() => {
+      const genresStore = useGenres();
+      if (!genresStore.list.length || !list.value.length) return [];
 
-  return list.value.map((moviesByGenre, i) => {
-    const genre = genresStore.list[i];
-    if (!genre?.name || !genre?.id || !moviesByGenre) {
-      // вместо throw возвращаем заглушку или логируем ошибку
-      console.warn('Invalid data for genre', genre, moviesByGenre);
-      return null;
-    }
-    const enrichedMovies = moviesByGenre.map(({ genre_ids = [], ...movie }) => ({
-      ...movie,
-      genre_ids,
-      genres_names: genre_ids.map(id => genresStore.list.find(g => g.id === id)?.name ?? ''),
-    }));
-    return { id: genre.id, name: genre.name, list: enrichedMovies };
-  }).filter(Boolean); // убрать null-элементы
-});
+      return list.value
+         .map((moviesByGenre, i) => {
+            const genre = genresStore.list[i];
+
+            if (!genre?.name || !genre?.id || !moviesByGenre) return null;
+
+            const enrichedMovies = moviesByGenre.map(({ genre_ids = [], ...movie }) => ({
+               ...movie,
+               genre_ids,
+               genres_names: genre_ids.map(
+                  (id) => genresStore.list.find((g) => g.id === id)?.name ?? "",
+               ),
+            }));
+            return { id: genre.id, name: genre.name, list: enrichedMovies };
+         })
+         .filter(Boolean);
+   });
 
    return {
       isLoading,
