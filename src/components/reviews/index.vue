@@ -50,15 +50,11 @@ const props = defineProps<{ movieId: number }>();
 
 const store = useMovieReviews();
 const { preparedList, isLoading } = storeToRefs(store);
-const { getReviews, $reset } = store;
-
-console.log(preparedList);
+const { getReviews } = store;
 
 onMounted(() => {
    getReviews(props.movieId);
 });
-
-const handleToggle = () => console.log(preparedList);
 </script>
 
 <style module lang="scss">

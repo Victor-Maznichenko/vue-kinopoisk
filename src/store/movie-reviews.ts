@@ -47,9 +47,6 @@ export const useMovieReviews = defineStore("movieReviews", () => {
       }),
    );
 
-   console.log(list.value);
-   console.log(preparedList.value);
-
    const getReviews = async (id: number) => {
       // if (isLoading.value) return;
 

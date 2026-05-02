@@ -70,7 +70,7 @@ const id = Number(route.params.id ?? "-1");
 
 const store = useMovie();
 const { preparedMovie } = storeToRefs(store);
-const { getMovie, $reset } = store;
+const { getMovie } = store;
 
 onMounted(() => {
    getMovie(id);

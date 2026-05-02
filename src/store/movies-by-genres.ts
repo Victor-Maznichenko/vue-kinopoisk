@@ -1,17 +1,10 @@
 import {
    requests,
    type DiscoverMovie200ResultsItem,
-   type GenreMovieList200GenresItem,
 } from "@/common/api";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useGenres } from "./genres";
-
-interface MoviesByGenre {
-   list: (DiscoverMovie200ResultsItem & { genres_names?: string[] })[];
-   name: string;
-   id: number;
-}
 
 const LIMIT = 10;
 

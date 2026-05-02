@@ -19,7 +19,7 @@ export const useMovie = defineStore("movie", () => {
       releaseYear: new Date(movie.value?.release_date ?? '').getFullYear(),
    }));
 
-   const getMovie = async (id) => {
+   const getMovie = async (id: number) => {
       if (isLoading.value) return;
 
       isLoading.value = true;
